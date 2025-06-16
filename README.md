@@ -1,6 +1,6 @@
 # Ray Tracer
 
-This Ray Tracer is pretty straightforward, and a work in progress. Right now, this program will open a window with freeglut and draw a scene. You can then navigate through the scene and explore. 
+This Ray Tracer is pretty straightforward, and a work in progress. This program will open a window and draw a scene. You can then navigate through the scene and explore. 
 
 ## To run on Linux
 compile:
