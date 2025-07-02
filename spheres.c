@@ -7,6 +7,7 @@
 #include<stdbool.h>
 #include<GL/freeglut.h>
 #include<math.h>
+#include "graphics_objects.h"
 #define pi 3.142857
 
 
@@ -25,71 +26,6 @@ float O[] = {0, 0, 0};
 float Yaw = 0; // For now lets keep in multiples of 10
 
 float distance = 1;
-
-typedef struct {
-    int center[3];
-    int radius;
-    int color[3];
-    int specular;
-    float reflective;
-} Sphere;
-
-typedef struct {
-    char type[16];
-    float intensity;
-    int position[3];
-    int direction[3];
-} Light;
-
-
-const Light l1 = {
-    .intensity = 0.1,
-    .type = "ambient"
-};
-
-const Light l2 = {
-    .intensity = 0.6,
-    .position = {2, 1, 0},
-    .type = "point"
-};
-
-const Light l3 = {
-    .intensity = 0.2,
-    .direction = {1, 4, 4},
-    .type = "directional"
-};
-
-const Sphere s1 = {
-    .center = {0, -1, 3},
-    .radius = 1,
-    .color = {1, 0, 0},
-    .specular = 500,
-    .reflective = 0.2
-};
-
-const Sphere s2 = {
-    .center = {2, 0, 4},
-    .radius = 1,
-    .color = {0, 0, 1},
-    .specular = 500,
-    .reflective = 0.3
-};
-
-const Sphere s3 = {
-    .center = {-2, 0, 4},
-    .radius = 1,
-    .color = {0, 1, 0},
-    .specular = 10,
-    .reflective = 0.4
-};
-
-const Sphere s4 = {
-    .center = {0, -5001, 4},
-    .radius = 5000,
-    .color = {1, 0, 1},
-    .specular = 10,
-    .reflective = 0.2
-};
 
 
 Sphere spheres[] = {s1, s2, s3, s4};
@@ -152,12 +88,6 @@ void intersectRaySphere(float* O, float* D, Sphere sphere, float* intersection_a
         intersection_array[1] = (-b - sqrt(discriminant)) / (2*a); // t2
     }
 }
-
-
-typedef struct {
-    float closest_t;
-    Sphere* closest_sphere;
-} Intersection;
 
 
 Intersection closestIntersection(float* O, float* D, float t_min, float t_max) {
@@ -249,13 +179,6 @@ float computeLighting(float* P, float* N, float* V, float s) {
 
     return lighting_multiplier;
 }
-
-
-typedef struct {
-    float r;
-    float g;
-    float b;
-} Color;
 
 
 void reflectRay(float* target, float* R, float* N) {
